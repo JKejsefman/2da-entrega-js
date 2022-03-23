@@ -1,0 +1,79 @@
+[
+
+    { id: '4', tipo: "doble", modelo: "Doble Matrimonial", precio: 4000, img: "img/matrimonial.jpg" },
+    { id: '5', tipo: "triple", modelo: "Triple Standard", precio: 5800, img: "img/triplesimple.jpg" },
+    { id: '6', tipo: "triple", modelo: "Triple c/ Matrimonial", precio: 6500, img: "img/tripleconmatrimonial.jpg" },
+    { id: '7', tipo: "cuadruple", modelo: "Cuadruple", precio: 5800, img: "img/cuadruple.jpg" },
+    { id: '8', tipo: "hostel", modelo: "Hostel Hab. Chica", precio: 2000, img: "img/habitacionhostelsimple.jpg" },
+    { id: '9', tipo: "hostel", modelo: "Hostel Hab. Compartida", precio: 1700, img: "img/habitaciongrandecompartida.jpg" },
+	{
+		"id": 1,
+		"marca": "single",
+		"imagen": "img/singlepequena.jpg",
+		"precio": "5000",
+		"detalles": ["Single Pequena"]
+	},
+	{
+		"id": 2,
+		"marca": "single",
+		"imagen": "img/singlestandard.jpg" ,
+		"precio": "3000",
+		"detalles": ["Single Standard"]
+	},
+	{
+		"id": 3,
+		"marca": "doble",
+		"imagen": "img/doble.jpg" ,
+		"precio": "4000",
+		"detalles": ["Doble Pro"]
+	},
+	{
+		"id": 4,
+		"marca": "doble",
+		"imagen": "img/doblesimple.jpg",
+		"precio": "5900",
+		"detalles": ["Doble Standard"]
+	},
+	{
+		"id": 5,
+		"marca": "doble",
+		"imagen": "img/matrimonial.jpg",
+		"precio": "5769",
+		"detalles": ["Doble Matrimonial"]
+	},
+	{
+		"id": 6,
+		"marca": "triple",
+		"imagen": "img/triplesimple.jpg" ,
+		"precio": "2599",
+		"detalles": ["Triple Standard"]
+	},
+	{
+		"id": 7,
+		"marca": "triple",
+		"imagen": "img/tripleconmatrimonial.jpg",
+		"precio": "4299",
+		"detalles": ["Triple c/ Matrimonial"]
+	},
+	{
+		"id": 8,
+		"marca":  "cuadruple",
+		"imagen": "img/cuadruple.jpg",
+		"precio": "869",
+		"detalles": ["Cuadruple"]
+	},
+	{
+		"id": 9,
+		"marca": "hostel",
+		"imagen": "img/habitacionhostelsimple.jpg",
+		"precio": "5397",
+		"detalles": ["Hostel Hab. Chica"]
+	}
+	{
+		"id": 10,
+		"marca": "hostel",
+		"imagen": "img/habitaciongrandecompartida.jpg",
+		"precio": "5397",
+		"detalles": ["Hostel Hab. Compartida"]
+	}
+]
