@@ -1,0 +1,65 @@
+[
+	{
+		"id": 1,
+		"marca": "SINGLE",
+		"imagen": "img/singlestandard.jpg",
+		"precio": "3000",
+		"detalles": ["Hab. Single Standard"]
+	},
+	{
+		"id": 2,
+		"marca": "SINGLE",
+		"imagen": "img/singlepequena.jpg",
+		"precio": "3500",
+		"detalles": ["Hab. Single Pequena"]
+	},
+	{
+		"id": 3,
+		"marca": "DOBLE",
+		"imagen": "img/doble.jpg" ,
+		"precio": "4000",
+		"detalles": ["Hab. Standard"]
+	},
+	{
+		"id": 4,
+		"marca": "DOBLE",
+		"imagen": "img/doblesimple.jpg",
+		"precio": "4100",
+		"detalles": ["Hab. Doble Simple"]
+	},
+	{
+		"id": 5,
+		"marca": "DOBLE",
+		"imagen": "img/matrimonial.jpg",
+		"precio": "4000",
+		"detalles": ["Hab. Matrimonial"]
+	},
+	{
+		"id": 6,
+		"marca": "TRIPLE",
+		"imagen": "img/triplesimple.jpg" ,
+		"precio": "5800",
+		"detalles": ["Hab. Triple Simple"]
+	},
+	{
+		"id": 7,
+		"marca": "TRIPLE",
+		"imagen": "img/tripleconmatrimonial.jpg",
+		"precio": "6500",
+		"detalles": ["Hab. Triple Matrimonial + Simple"]
+	},
+	{
+		"id": 8,
+		"marca": "CUADRUPLE",
+		"imagen": "img/cuadruple.jpg",
+		"precio": "5800",
+		"detalles": ["Cuadruple"]
+	},
+	{
+		"id": 9,
+		"marca": "HOSTEL",
+		"imagen": "img/habitacionhostelsimple.jpg",
+		"precio": "2000",
+		"detalles": ["Hostel Hab. Chica"]
+	}
+]

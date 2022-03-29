@@ -1,85 +1,85 @@
 class Carrito {
 
-    //Añadir habitacion al carrito
-    comprarHabitacion(e){
+    //Añadir producto al carrito
+    comprarProducto(e){
         e.preventDefault();
-        //Delegado para agregar al carrito
+ 
         if(e.target.classList.contains('agregar-carrito')){
-            const habitacion = e.target.parentElement.parentElement;
-            //Enviamos el habitacion seleccionado para tomar sus datos
-            this.leerDatosHabitacion(habitacion);
+            const producto = e.target.parentElement.parentElement;
+       
+            this.leerDatosProducto(producto);
         }
     }
 
-    //Leer datos del habitacion
-    leerDatosHabitacion(habitacion){
-        const infoHabitacion = {
-            imagen : habitacion.querySelector('img').src,
-            titulo: habitacion.querySelector('h4').textContent,
-            precio: habitacion.querySelector('.precio span').textContent,
-            id: habitacion.querySelector('a').getAttribute('data-id'),
+    //Leer datos d
+    leerDatosProducto(producto){
+        const infoProducto = {
+            imagen : producto.querySelector('img').src,
+            titulo: producto.querySelector('h4').textContent,
+            precio: producto.querySelector('.precio span').textContent,
+            id: producto.querySelector('a').getAttribute('data-id'),
             cantidad: 1
         }
-        let habitacionesLS;
-        habitacionesLS = this.obtenerHabitacionsLocalStorage();
-        habitacionesLS.forEach(function (habitacionLS){
-            if(habitacionLS.id === infoHabitacion.id){
-                habitacionesLS = habitacionLS.id;
+        let productosLS;
+        productosLS = this.obtenerProductosLocalStorage();
+        productosLS.forEach(function (productoLS){
+            if(productoLS.id === infoProducto.id){
+                productosLS = productoLS.id;
             }
         });
 
-        if(habitacionesLS === infoHabitacion.id){
+        if(productosLS === infoProducto.id){
             Swal.fire({
                 type: 'info',
                 title: 'Oops...',
-                text: 'La habitacion ya está agregado',
+                text: 'El producto ya está agregado',
                 showConfirmButton: false,
                 timer: 1000
             })
         }
         else {
-            this.insertarCarrito(infoHabitacion);
+            this.insertarCarrito(infoProducto);
         }
         
     }
 
-    //muestra habitacion seleccionado en carrito
-    insertarCarrito(habitacion){
+    //muestra producto seleccionado en carrito
+    insertarCarrito(producto){
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>
-                <img src="${habitacion.imagen}" width=100>
+                <img src="${producto.imagen}" width=100>
             </td>
-            <td>${habitacion.titulo}</td>
-            <td>${habitacion.precio}</td>
+            <td>${producto.titulo}</td>
+            <td>${producto.precio}</td>
             <td>
-                <a href="#" class="borrar-habitacion fas fa-times-circle" data-id="${habitacion.id}"></a>
+                <a href="#" class="borrar-producto fas fa-times-circle" data-id="${producto.id}"></a>
             </td>
         `;
-        listaHabitacions.appendChild(row);
-        this.guardarHabitacionsLocalStorage(habitacion);
+        listaProductos.appendChild(row);
+        this.guardarProductosLocalStorage(producto);
 
     }
 
-    //Eliminar el habitacion del carrito en el DOM
-    eliminarHabitacion(e){
+    //Eliminar el producto DOM
+    eliminarProducto(e){
         e.preventDefault();
-        let habitacion, habitacionID;
-        if(e.target.classList.contains('borrar-habitacion')){
+        let producto, productoID;
+        if(e.target.classList.contains('borrar-producto')){
             e.target.parentElement.parentElement.remove();
-            habitacion = e.target.parentElement.parentElement;
-            habitacionID = habitacion.querySelector('a').getAttribute('data-id');
+            producto = e.target.parentElement.parentElement;
+            productoID = producto.querySelector('a').getAttribute('data-id');
         }
-        this.eliminarHabitacionLocalStorage(habitacionID);
+        this.eliminarProductoLocalStorage(productoID);
         this.calcularTotal();
 
     }
 
-    //Elimina todos las habitaciones
+    //Elimina todos 
     vaciarCarrito(e){
         e.preventDefault();
-        while(listaHabitacions.firstChild){
-            listaHabitacions.removeChild(listaHabitacions.firstChild);
+        while(listaProductos.firstChild){
+            listaProductos.removeChild(listaProductos.firstChild);
         }
         this.vaciarLocalStorage();
 
@@ -87,92 +87,90 @@ class Carrito {
     }
 
     //Almacenar en el LS
-    guardarHabitacionsLocalStorage(habitacion){
-        let habitaciones;
-        //Toma valor de un arreglo con datos del LS
-        habitaciones = this.obtenerHabitacionsLocalStorage();
-        //Agregar el habitacion al carrito
-        habitaciones.push(habitacion);
-        //Agregamos al LS
-        localStorage.setItem('habitaciones', JSON.stringify(habitaciones));
+    guardarProductosLocalStorage(producto){
+        let productos;
+    
+        productos = this.obtenerProductosLocalStorage();
+
+        productos.push(producto);
+      
+        localStorage.setItem('productos', JSON.stringify(productos));
     }
 
-    //Comprobar que hay elementos en el LS
-    obtenerHabitacionsLocalStorage(){
-        let habitacionLS;
+    
+    obtenerProductosLocalStorage(){
+        let productoLS;
 
         //Comprobar si hay algo en LS
-        if(localStorage.getItem('habitaciones') === null){
-            habitacionLS = [];
+        if(localStorage.getItem('productos') === null){
+            productoLS = [];
         }
         else {
-            habitacionLS = JSON.parse(localStorage.getItem('habitaciones'));
+            productoLS = JSON.parse(localStorage.getItem('productos'));
         }
-        return habitacionLS;
+        return productoLS;
     }
 
-    //Mostrar los habitaciones guardados en el LS
+    //Mostrar los productos 
     leerLocalStorage(){
-        let habitacionesLS;
-        habitacionesLS = this.obtenerHabitacionsLocalStorage();
-        habitacionesLS.forEach(function (habitacion){
-            //Construir plantilla
+        let productosLS;
+        productosLS = this.obtenerProductosLocalStorage();
+        productosLS.forEach(function (producto){
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>
-                    <img src="${habitacion.imagen}" width=100>
+                    <img src="${producto.imagen}" width=100>
                 </td>
-                <td>${habitacion.titulo}</td>
-                <td>${habitacion.precio}</td>
+                <td>${producto.titulo}</td>
+                <td>${producto.precio}</td>
                 <td>
-                    <a href="#" class="borrar-habitacion fas fa-times-circle" data-id="${habitacion.id}"></a>
+                    <a href="#" class="borrar-producto fas fa-times-circle" data-id="${producto.id}"></a>
                 </td>
             `;
-            listaHabitacions.appendChild(row);
+            listaProductos.appendChild(row);
         });
     }
 
-    //Mostrar los habitaciones guardados en el LS en compra.html
+    
     leerLocalStorageCompra(){
-        let habitacionesLS;
-        habitacionesLS = this.obtenerHabitacionsLocalStorage();
-        habitacionesLS.forEach(function (habitacion){
+        let productosLS;
+        productosLS = this.obtenerProductosLocalStorage();
+        productosLS.forEach(function (producto){
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>
-                    <img src="${habitacion.imagen}" width=100>
+                    <img src="${producto.imagen}" width=100>
                 </td>
-                <td>${habitacion.titulo}</td>
-                <td>${habitacion.precio}</td>
+                <td>${producto.titulo}</td>
+                <td>${producto.precio}</td>
                 <td>
-                    <input type="number" class="form-control cantidad" min="1" value=${habitacion.cantidad}>
+                    <input type="number" class="form-control cantidad" min="1" value=${producto.cantidad}>
                 </td>
-                <td id='subtotales'>${habitacion.precio * habitacion.cantidad}</td>
+                <td id='subtotales'>${producto.precio * producto.cantidad}</td>
                 <td>
-                    <a href="#" class="borrar-habitacion fas fa-times-circle" style="font-size:30px" data-id="${habitacion.id}"></a>
+                    <a href="#" class="borrar-producto fas fa-times-circle" style="font-size:30px" data-id="${producto.id}"></a>
                 </td>
             `;
             listaCompra.appendChild(row);
         });
     }
 
-    //Eliminar habitacion por ID del LS
-    eliminarHabitacionLocalStorage(habitacionID){
-        let habitacionesLS;
-        //Obtenemos el arreglo de habitaciones
-        habitacionesLS = this.obtenerHabitacionsLocalStorage();
-        //Comparar el id del habitacion borrado con LS
-        habitacionesLS.forEach(function(habitacionLS, index){
-            if(habitacionLS.id === habitacionID){
-                habitacionesLS.splice(index, 1);
+    //Eliminar producto por ID 
+    eliminarProductoLocalStorage(productoID){
+        let productosLS;
+   
+        productosLS = this.obtenerProductosLocalStorage();
+
+        productosLS.forEach(function(productoLS, index){
+            if(productoLS.id === productoID){
+                productosLS.splice(index, 1);
             }
         });
 
-        //Añadimos el arreglo actual al LS
-        localStorage.setItem('habitaciones', JSON.stringify(habitacionesLS));
+        localStorage.setItem('productos', JSON.stringify(productosLS));
     }
 
-    //Eliminar todos los datos del LS
+    //Eliminar  datos 
     vaciarLocalStorage(){
         localStorage.clear();
     }
@@ -181,11 +179,11 @@ class Carrito {
     procesarPedido(e){
         e.preventDefault();
 
-        if(this.obtenerHabitacionsLocalStorage().length === 0){
+        if(this.obtenerProductosLocalStorage().length === 0){
             Swal.fire({
                 type: 'error',
                 title: 'Oops...',
-                text: 'El carrito está vacío, agrega algún habitacion',
+                text: 'El carrito está vacío, agrega algún producto',
                 showConfirmButton: false,
                 timer: 2000
             })
@@ -197,39 +195,39 @@ class Carrito {
 
     //Calcular montos
     calcularTotal(){
-        let habitacionesLS;
+        let productosLS;
         let total = 0, igv = 0, subtotal = 0;
-        habitacionesLS = this.obtenerHabitacionsLocalStorage();
-        for(let i = 0; i < habitacionesLS.length; i++){
-            let element = Number(habitacionesLS[i].precio * habitacionesLS[i].cantidad);
+        productosLS = this.obtenerProductosLocalStorage();
+        for(let i = 0; i < productosLS.length; i++){
+            let element = Number(productosLS[i].precio * productosLS[i].cantidad);
             total = total + element;
             
         }
         
-        igv = parseFloat(total * 0.18).toFixed(2);
+        igv = parseFloat(total * 0.21).toFixed(2);
         subtotal = parseFloat(total-igv).toFixed(2);
 
-        document.getElementById('subtotal').innerHTML = "S/. " + subtotal;
-        document.getElementById('igv').innerHTML = "S/. " + igv;
-        document.getElementById('total').value = "S/. " + total.toFixed(2);
+        document.getElementById('subtotal(S/IVA)').innerHTML = "$ " + subtotal;
+        document.getElementById('IVA').innerHTML = "$ " + igv;
+        document.getElementById('total').value = "$ " + total.toFixed(2);
     }
 
     obtenerEvento(e) {
         e.preventDefault();
-        let id, cantidad, habitacion, habitacionesLS;
+        let id, cantidad, producto, productosLS;
         if (e.target.classList.contains('cantidad')) {
-            habitacion = e.target.parentElement.parentElement;
-            id = habitacion.querySelector('a').getAttribute('data-id');
-            cantidad = habitacion.querySelector('input').value;
+            producto = e.target.parentElement.parentElement;
+            id = producto.querySelector('a').getAttribute('data-id');
+            cantidad = producto.querySelector('input').value;
             let actualizarMontos = document.querySelectorAll('#subtotales');
-            habitacionesLS = this.obtenerHabitacionsLocalStorage();
-            habitacionesLS.forEach(function (habitacionLS, index) {
-                if (habitacionLS.id === id) {
-                    habitacionLS.cantidad = cantidad;                    
-                    actualizarMontos[index].innerHTML = Number(cantidad * habitacionesLS[index].precio);
+            productosLS = this.obtenerProductosLocalStorage();
+            productosLS.forEach(function (productoLS, index) {
+                if (productoLS.id === id) {
+                    productoLS.cantidad = cantidad;                    
+                    actualizarMontos[index].innerHTML = Number(cantidad * productosLS[index].precio);
                 }    
             });
-            localStorage.setItem('habitaciones', JSON.stringify(habitacionesLS));
+            localStorage.setItem('productos', JSON.stringify(productosLS));
             
         }
         else {

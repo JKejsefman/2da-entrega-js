@@ -1,21 +1,21 @@
 const carro = new Carrito();
 const carrito = document.getElementById("carrito");
-const habitaciones = document.getElementById("lista-habitaciones");
-const listaHabitaciones = document.querySelector("#lista-carrito tbody");
+const productos = document.getElementById("lista-productos");
+const listaProductos = document.querySelector("#lista-carrito tbody");
 const vaciarCarritoBtn = document.getElementById("vaciar-carrito");
 const procesarPedidoBtn = document.getElementById("procesar-pedido");
 
 cargarEventos();
 
 function cargarEventos() {
-	//Se ejecuta cuando se presionar agregar carrito
-	habitaciones.addEventListener("click", (e) => {
-		carro.comprarHabitacion(e);
+	//click agregar carrito
+	productos.addEventListener("click", (e) => {
+		carro.comprarProducto(e);
 	});
 
-	//Cuando se elimina habitaciones del carrito
+	//Cuando se elimina productos del carrito
 	carrito.addEventListener("click", (e) => {
-		carro.eliminarHabitacion(e);
+		carro.eliminarProducto(e);
 	});
 
 	//Al vaciar carrito
@@ -23,36 +23,36 @@ function cargarEventos() {
 		carro.vaciarCarrito(e);
 	});
 
-	//Al cargar documento se muestra lo almacenado en LS
+
 	document.addEventListener("DOMContentLoaded", () => {
 		carro.leerLocalStorage();
-		fetchHabitaciones();
+		fetchProductos();
 	});
 
-	//Enviar pedido a otra pagina
+
 	procesarPedidoBtn.addEventListener("click", (e) => {
 		carro.procesarPedido(e);
 	});
 }
 
-async function fetchHabitaciones() {
-	let res = await fetch("../data/habitaciones.json");
+async function fetchProductos() {
+	let res = await fetch("../data/productos.json");
 	let data = await res.json();
 	let html = "";
-	data.forEach((habitacion, index) => {
+	data.forEach((producto, index) => {
 		curr = `
 		<div class="card mb-4 shadow-sm ">
 				<div class="card-header">
-					<h4 class="my-0 font-weight-bold">${habitacion.marca}</h4>
+					<h4 class="my-0 font-weight-bold">${producto.marca}</h4>
 				</div>
 				<div class="card-body">
-					<img src=${habitacion.imagen} class="card-img-top" alt=${habitacion.marca}>
-					<h1 class="card-title pricing-card-title precio">S/. <span class="">${
-						habitacion.precio
+					<img src=${producto.imagen} class="card-img-top" alt=${producto.marca}>
+					<h1 class="card-title pricing-card-title precio">$  <span class="">${
+						producto.precio
 					}</span></h1>
 
 					<ul class="list-unstyled mt-3 mb-4">
-					${habitacion.detalles
+					${producto.detalles
 						.map(
 							(ele) => `
 							<li>${ele}</li>
@@ -60,7 +60,7 @@ async function fetchHabitaciones() {
 						)
 						.join("")}
 					</ul>
-					<a href="" class="btn btn-block btn-primary agregar-carrito" data-id=${habitacion.id}>Comprar</a>
+					<a href="" class="btn btn-block btn-primary agregar-carrito" data-id=${producto.id}>Comprar</a>
 				</div>
 			</div>
 		`
@@ -72,5 +72,5 @@ async function fetchHabitaciones() {
 			html += curr
 		}
 	});
-	habitaciones.innerHTML = html;
+	productos.innerHTML = html;
 }

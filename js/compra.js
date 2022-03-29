@@ -10,12 +10,12 @@ cargarEventos();
 function cargarEventos() {
     document.addEventListener('DOMContentLoaded', compra.leerLocalStorageCompra());
 
-    //Eliminar Habitaciones del carrito
-    carrito.addEventListener('click', (e) => { compra.eliminarHabitacion(e) });
+    //Eliminar productos 
+    carrito.addEventListener('click', (e) => { compra.eliminarProducto(e) });
 
     compra.calcularTotal();
 
-    //cuando se selecciona procesar Compra
+    //click procesar Compra
     procesarCompraBtn.addEventListener('click', procesarCompra);
 
     carrito.addEventListener('change', (e) => { compra.obtenerEvento(e) });
@@ -24,12 +24,11 @@ function cargarEventos() {
 }
 
 function procesarCompra() {
-    // e.preventDefault();
-    if (compra.obtenerHabitacionesLocalStorage().length === 0) {
+    if (compra.obtenerProductosLocalStorage().length === 0) {
         Swal.fire({
             type: 'error',
             title: 'Oops...',
-            text: 'No hay Habitaciones, selecciona alguno',
+            text: 'No hay productos, selecciona alguno',
             showConfirmButton: false,
             timer: 2000
         }).then(function () {
@@ -50,33 +49,22 @@ function procesarCompra() {
         //aqui se coloca el user id generado en el emailJS
         emailjs.init('user_CEozz2F39lJJOLF5mJiDA')
 
-        /* AGREGAR DATOS DETALLE DEL PEDIDO A UN TEXT AREA */
+        /* AGREGAR DATOS DETALLE DEL PEDIDO  */
         const textArea = document.createElement('textarea');
         textArea.id = "detalleCompra";
         textArea.name = "detalleCompra";
         textArea.cols = 60;
         textArea.rows = 10;
         textArea.hidden = true;
-        HabitacionesLS = compra.obtenerHabitacionesLocalStorage();
+        productosLS = compra.obtenerProductosLocalStorage();
 
-        //Send email option 1
-        // HabitacionesLS.forEach(function (habitacion) {
-        //     textArea.innerHTML += `
-        //          Habitacion : ${habitacion.titulo} <br>
-        //          Precio : ${habitacion.precio} <br>
-        //          Cantidad: ${habitacion.cantidad} <br>
-        //         --------------------------------------------- <br>
-        //         `;
-        // });
-        //End option 1
 
-        //Send email option 2
-        textArea.innerHTML = generarTabla(HabitacionesLS).innerHTML;
-        //End option 2
+        textArea.innerHTML = generarTabla(productosLS).innerHTML;
+  
 
         carrito.appendChild(textArea);
 
-        /* ------------------------- */
+
 
         document.getElementById('procesar-pago')
             .addEventListener('submit', function (event) {
@@ -112,7 +100,7 @@ function procesarCompra() {
 }
 
 
-function generarTabla(HabitacionesLS) {
+function generarTabla(productosLS) {
     let div = document.createElement("div");
 
     let tabla = document.createElement("table");
@@ -132,14 +120,14 @@ function generarTabla(HabitacionesLS) {
 
     const body = tabla.childNodes[3];
 
-    // HabitacionesLS = compra.obtenerHabitacionesLocalStorage();
-    HabitacionesLS.forEach(habitacion => {
+  
+    productosLS.forEach(producto => {
         const row = document.createElement("tr");
         row.innerHTML += `
-                            <td>${habitacion.titulo}</td>
-                            <td>${habitacion.precio}</td>
-                            <td>${habitacion.cantidad}</td>
-                            <td>${habitacion.precio * habitacion.cantidad}</td>
+                            <td>${producto.titulo}</td>
+                            <td>${producto.precio}</td>
+                            <td>${producto.cantidad}</td>
+                            <td>${producto.precio * producto.cantidad}</td>
                         `;
         body.appendChild(row);
     });
